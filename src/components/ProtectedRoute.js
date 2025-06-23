@@ -13,7 +13,6 @@ const ProtectedRoute = () => {
   return (
     <>
       <Header />
-      "trrrrrrrrrrrrrr"
       <Outlet />
     </>
   )

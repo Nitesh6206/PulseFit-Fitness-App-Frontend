@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: {BACKEND_URL},
   headers: {
     'Content-Type': 'application/json',
   },
@@ -37,7 +40,7 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const refreshResponse = await axios.post(
-          'http://localhost:8000/api/token/refresh/',
+          `${BACKEND_URL}/token/refresh/`,
           {
             refresh: localStorage.getItem('refresh_token'),
           },
