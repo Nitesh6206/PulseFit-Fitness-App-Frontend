@@ -6,6 +6,7 @@ import Login from './components/Login';
 import BookingList from './components/BookingList';
 import BookingForm from './components/BookingForm';
 import ClassForm from './components/classFrom';
+import Register from './components/Register';
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
@@ -19,7 +20,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute />}>
  
         <Route path="/" element={<ClassCard />} />
