@@ -1,20 +1,13 @@
 // src/App.js
-import { useSelector } from 'react-redux';
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import ClassCard from './components/ClassCard';
 import Login from './components/Login';
 import BookingList from './components/BookingList';
 import BookingForm from './components/BookingForm';
 import ClassForm from './components/classFrom';
 import Register from './components/Register';
+import ProtectedRoute from './components/ProtectedRoute';
 
-const ProtectedRoute = () => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  return <Outlet />;
-};
 
 const App = () => {
   return (

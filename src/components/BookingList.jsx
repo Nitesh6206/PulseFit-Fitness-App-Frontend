@@ -2,46 +2,22 @@ import { useState, useEffect } from 'react';
 import axiosInstance from '../redux/axiosConfig';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Input } from './ui/input';
 import { useToast } from './ui/toast';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, User, Trash2, Mail, Search } from 'lucide-react';
-
-const debounce = (func, wait) => {
-  let timeout;
-  const debounced = (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
-  };
-  debounced.cancel = () => clearTimeout(timeout);
-  return debounced;
-};
+import { Calendar, User, Trash2 } from 'lucide-react';
 
 const BookingList = () => {
-  const [email, setEmail] = useState('');
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  const validateEmail = (value) => {
-    if (!value.trim()) return 'Email is required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Invalid email format';
-    return '';
-  };
-
-  const fetchBookingsDetails = async (email) => {
-    if (!email || validateEmail(email)) {
-      setBookings([]);
-      return;
-    }
+  const fetchBookingsDetails = async () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axiosInstance.get('/bookings/', {
-        params: { email },
-      });
+      const response = await axiosInstance.get('/bookings/');
       setBookings(response.data);
     } catch (error) {
       setError(error.response?.data?.error || 'Failed to fetch bookings');
@@ -55,12 +31,9 @@ const BookingList = () => {
     }
   };
 
-  const debouncedFetchBookings = debounce(fetchBookingsDetails, 500);
-
   useEffect(() => {
-    debouncedFetchBookings(email);
-    return () => debouncedFetchBookings.cancel();
-  }, [email]);
+    fetchBookingsDetails();
+  }, []);
 
   const handleCancel = async (bookingId) => {
     if (!window.confirm('Are you sure you want to cancel this booking?')) return;
@@ -72,7 +45,7 @@ const BookingList = () => {
         title: 'Success',
         description: 'Booking cancelled successfully',
       });
-      fetchBookingsDetails(email);
+      fetchBookingsDetails();
     } catch (error) {
       toast({
         title: 'Error',
@@ -85,9 +58,6 @@ const BookingList = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
-        <div className="sticky top-0 bg-white/80 backdrop-blur-md shadow-md rounded-2xl p-6 mb-8 ">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-3xl font-bold text-gray-900">My Bookings</h2>
             <Button
               variant="outline"
               onClick={() => navigate('/')}
@@ -95,26 +65,16 @@ const BookingList = () => {
             >
               Back to Classes
             </Button>
+          <div className="flex justify-center items-center mb-4">
+            <h2 className="text-3xl font-bold text-gray-900">My Bookings</h2>
           </div>
-          <div className="relative max-w-md mx-auto">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-            <Input
-              placeholder="Enter your email to view bookings"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`pl-10 ${error ? 'border-red-500' : 'border-gray-300'} focus:ring-blue-500 focus:border-blue-500`}
-              aria-label="Search bookings by email"
-            />
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-          </div>
-        </div>
 
         {/* Content Section */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
           </div>
-        ) : bookings.length === 0 && email && !error ? (
+        ) : bookings.length === 0 && !error ? (
           <div className="text-center py-16 animate-fade-in">
             <Calendar className="mx-auto h-16 w-16 text-gray-400 mb-4" />
             <h3 className="text-2xl font-semibold text-gray-900 mb-2">No Bookings Found</h3>
@@ -157,7 +117,7 @@ const BookingList = () => {
                       : 'N/A'}
                   </p>
                   <p className="flex items-center gap-2 text-gray-700">
-                    <Mail className="h-4 w-4 text-gray-500" />
+                    <User className="h-4 w-4 text-gray-500" />
                     <span className="font-medium">Booked by:</span> {booking.client_name} ({booking.client_email})
                   </p>
                   <Button
@@ -173,6 +133,7 @@ const BookingList = () => {
             ))}
           </div>
         )}
+        {error && <p className="text-red-500 text-sm mt-4 text-center">{error}</p>}
       </div>
     </div>
   );
