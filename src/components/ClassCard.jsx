@@ -108,22 +108,14 @@ const ClassList = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className=" mx-auto">
         {/* Header Section */}
-        <div className="sticky top-0 bg-white/80 backdrop-blur-md shadow-md rounded-2xl p-6 mb-8 z-10">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Fitness Classes</h1>
-              <p className="text-gray-600 text-base">Explore and book your perfect workout session</p>
-            </div>
-            <Button
+         <Button
               onClick={handleCreateNew}
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+              className="flex justify-end items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 font-semibold shadow-md hover:shadow-lg transition-all duration-300"
               aria-label="Create new fitness class"
             >
               <Plus className="h-5 w-5" />
               Create New Class
             </Button>
-          </div>
-        </div>
 
         {/* Stats Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 animate-fade-in">

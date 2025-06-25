@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const initialState = {
   user: (() => {
     const userData = localStorage.getItem('user');
@@ -21,7 +23,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/login/`, { username, password });
+      const response = await axios.post(`${BACKEND_URL}/api/login/`, { username, password });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.error || 'Failed to login');
@@ -33,7 +35,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async ({ username, email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${BACKEND_URL}/register/`, {
+      const response = await axios.post(`${BACKEND_URL}/api/register/`, {
         username,
         email,
         password,
