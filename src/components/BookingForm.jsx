@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { useToast } from './ui/toast';
-import { Calendar, User, Mail } from 'lucide-react';
+import { Calendar, User } from 'lucide-react';
 import axiosInstance from '../redux/axiosConfig';
 
 const BookingForm = () => {
@@ -13,8 +13,7 @@ const BookingForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     class_id: state?.classId || '',
-    client_name: '',
-    client_email: '',
+    slots: 1,
   });
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,16 +58,8 @@ const BookingForm = () => {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.class_id) newErrors.class_id = 'Please select a class';
-    if (!formData.client_name.trim()) newErrors.client_name = 'Name is required';
-    if (!formData.client_email.trim()) newErrors.client_email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.client_email)) newErrors.client_email = 'Invalid email format';
+    if (!formData.slots || formData.slots < 1) newErrors.slots = 'Please enter a valid number of slots';
     return newErrors;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: '' });
   };
 
   const handleSubmit = async (e) => {
@@ -80,16 +71,19 @@ const BookingForm = () => {
     }
 
     try {
-      await axiosInstance.post('/bookings/', formData);
+      await axiosInstance.post('/bookings/', {
+        class_id: formData.class_id,
+        slots: formData.slots,
+      });
       toast({
         title: 'Success',
         description: 'Booking created successfully',
       });
       navigate('/my-bookings');
     } catch (error) {
-      const errorMsg = error.response?.data?.error || 
-                       error.response?.data?.non_field_errors?.join(', ') || 
-                       'Failed to create booking';
+      const errorMsg = error.response?.data?.error ||
+        error.response?.data?.non_field_errors?.join(', ') ||
+        'Failed to create booking';
       toast({
         title: 'Error',
         description: errorMsg,
@@ -115,9 +109,10 @@ const BookingForm = () => {
           <p className="text-red-500 text-sm mb-4 text-center">{errors.non_field}</p>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Class selection */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-600">
-              <Calendar className="h-2 h-4 w-4 text-blue-500" /> Class
+              <Calendar className="h-4 w-4 text-blue-500" /> Class
             </label>
             {selectedClass ? (
               <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
@@ -165,43 +160,26 @@ const BookingForm = () => {
             )}
             {errors.class_id && <p className="text-red-500 text-sm">{errors.class_id}</p>}
           </div>
+
+          {/* Slot input */}
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-600">
-              <User className="h-4 w-4 text-blue-500" /> Name
+              <User className="h-4 w-4 text-blue-500" /> Number of Slots
             </label>
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <Input
-                name="client_name"
-                value={formData.client_name}
-                onChange={handleChange}
-                placeholder="Enter your name"
-                className={`pl-10 ${errors.client_name ? 'border-red-500' : 'border-gray-300'} focus:ring-blue-500 focus:border-blue-500`}
-                required
-                aria-label="Your name"
-              />
-            </div>
-            {errors.client_name && <p className="text-red-500 text-sm">{errors.client_name}</p>}
+            <Input
+              type="number"
+              name="slots"
+              min="1"
+              value={formData.slots}
+              onChange={(e) => setFormData({ ...formData, slots: Number(e.target.value) })}
+              placeholder="Enter number of slots"
+              className={`pl-3 ${errors.slots ? 'border-red-500' : 'border-gray-300'} focus:ring-blue-500 focus:border-blue-500`}
+              required
+            />
+            {errors.slots && <p className="text-red-500 text-sm">{errors.slots}</p>}
           </div>
-          <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-600">
-              <Mail className="h-4 w-4 text-blue-500" /> Email
-            </label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <Input
-                type="email"
-                name="client_email"
-                value={formData.client_email}
-                onChange={handleChange}
-                placeholder="Enter your email"
-                className={`pl-10 ${errors.client_email ? 'border-red-500' : 'border-gray-300'} focus:ring-blue-500 focus:border-blue-500`}
-                required
-                aria-label="Your email"
-              />
-            </div>
-            {errors.client_email && <p className="text-red-500 text-sm">{errors.client_email}</p>}
-          </div>
+
+          {/* Submit/Cancel */}
           <div className="flex gap-4">
             <Button
               type="button"

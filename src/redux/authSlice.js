@@ -33,12 +33,13 @@ export const login = createAsyncThunk(
 
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ username, email, password }, { rejectWithValue }) => {
+  async ({ username, email, password, profile}, { rejectWithValue }) => {
     try {
       const response = await axios.post(`${BACKEND_URL}/api/register/`, {
         username,
         email,
         password,
+        profile,
       });
       return response.data;
     } catch (error) {
