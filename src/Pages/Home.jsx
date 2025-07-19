@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Dialog, DialogContent } from './ui/dialog';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { Dialog, DialogContent } from '../components/ui/dialog';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from './ui/toast';
+import { useToast } from '../components/ui/toast';
 import { Plus, Calendar, Users, User, Clock, MapPin, Edit, BookOpen } from 'lucide-react';
 import axiosInstance from '../redux/axiosConfig';
-import ClassForm from './classFrom';
+import ClassForm from '../components/classFrom';
 
 const ClassList = () => {
   const [classes, setClasses] = useState([]);

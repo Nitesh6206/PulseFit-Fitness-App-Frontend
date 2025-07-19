@@ -1,7 +1,7 @@
 // src/components/ProtectedRoute.js
 import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
-import Header from './Header';
+import Header from '../components/Header';
 
 const ProtectedRoute = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);

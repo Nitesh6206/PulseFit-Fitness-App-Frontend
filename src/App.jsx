@@ -1,12 +1,13 @@
 // src/App.js
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import ClassCard from './components/ClassCard';
-import Login from './components/Login';
-import BookingList from './components/BookingList';
+import ClassCard from './Pages/Home';
+import Login from './Pages/Login';
+import BookingList from './Pages/BookingList';
 import BookingForm from './components/BookingForm';
 import ClassForm from './components/classFrom';
-import Register from './components/Register';
-import ProtectedRoute from './components/ProtectedRoute';
+import Register from './Pages/Register';
+import ProtectedRoute from './Pages/ProtectedRoute';
+import MyFitnessDashboard from './Pages/MyFitnessDashboard';
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/edit-class/:id" element={<ClassForm />} />
         <Route path="/book-class" element={<BookingForm />} />
         <Route path="/my-bookings" element={<BookingList />} />
+        <Route path="/my-fitness-plans" element={<MyFitnessDashboard />} />
       </Route >
     </Routes >
   );

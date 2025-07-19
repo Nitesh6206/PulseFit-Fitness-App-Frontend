@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../redux/axiosConfig';
-import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { useToast } from './ui/toast';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { useToast } from '../components/ui/toast';
 import { useNavigate } from 'react-router-dom';
 import { Calendar, User, Trash2 } from 'lucide-react';
 

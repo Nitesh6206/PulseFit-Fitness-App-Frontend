@@ -31,7 +31,9 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: 'My Bookings', path: '/my-bookings', icon: BookOpen },
+    { name: 'Home', path: '/', icon: LogOut },
+    { name: 'My Bookings', path: '/my-bookings', icon: Menu },
+    { name: 'My Fitness Plans', path: '/my-fitness-plans', icon: X },
   ];
 
   const isActive = (path) => location.pathname === path;
@@ -42,7 +44,10 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo/Brand */}
           <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-gray-900">Fitness Studio</span>
+            <span className="text-2xl font-bold text-gray-900 tracking-tighter">
+              <span className="text-blue-600">Pulse</span>
+              <span className="text-orange-600">Fit</span>
+            </span>
           </div>
 
           {/* Desktop Navigation */}
@@ -62,6 +67,8 @@ const Header = () => {
                 <item.icon className="h-5 w-5" />
                 {item.name}
               </Button>
+              
+              
             ))}
             <Button
               onClick={handleLogout}

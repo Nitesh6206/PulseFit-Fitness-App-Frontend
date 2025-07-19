@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../redux/authSlice';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { useToast } from './ui/toast';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { useToast } from '../components/ui/toast';
 import { Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
