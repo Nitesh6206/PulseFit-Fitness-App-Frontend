@@ -25,7 +25,7 @@ const MyFitnessDashboard = () => {
 
   const handlePlanCreate = async (newPlanData) => {
     try {
-      const res = await axiosInstance.post('/fitness-plans/', newPlanData);
+      const res = await axiosInstance.post('/ai-assistance/', newPlanData);
       setPlans(prev => [...prev, res.data]);
     } catch (error) {
       console.error("Failed to create plan", error);

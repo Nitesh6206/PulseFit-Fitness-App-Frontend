@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../redux/axiosConfig';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { useToast } from '../components/ui/toast';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, User, Trash2 } from 'lucide-react';
+import { Calendar, User, Trash2, ArrowLeft, Activity } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   const fetchBookingsDetails = async () => {
@@ -21,11 +18,6 @@ const BookingList = () => {
       setBookings(response.data);
     } catch (error) {
       setError(error.response?.data?.error || 'Failed to fetch bookings');
-      toast({
-        title: 'Error',
-        description: error.response?.data?.error || 'Failed to fetch bookings',
-        variant: 'destructive',
-      });
     } finally {
       setLoading(false);
     }
@@ -41,99 +33,145 @@ const BookingList = () => {
       await axiosInstance.delete('/bookings/', {
         data: { id: bookingId },
       });
-      toast({
-        title: 'Success',
-        description: 'Booking cancelled successfully',
-      });
       fetchBookingsDetails();
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: error.response?.data?.error || 'Failed to cancel booking',
-        variant: 'destructive',
-      });
+      console.error('Failed to cancel booking');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-            <Button
-              variant="outline"
-              onClick={() => navigate('/')}
-              className="text-blue-600 border-blue-600 hover:bg-blue-50"
-            >
-              Back to Classes
-            </Button>
-          <div className="flex justify-center items-center mb-4">
-            <h2 className="text-3xl font-bold text-gray-900">My Bookings</h2>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="flex items-center gap-4 mb-8">
+          <button
+            onClick={() => navigate('/')}
+            className="inline-flex items-center gap-2 px-4 py-2 text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-xl hover:bg-indigo-100 transition-colors font-medium"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Classes
+          </button>
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900">My Bookings</h1>
+            <p className="text-gray-600 mt-1">Manage your fitness class reservations</p>
           </div>
+        </div>
 
-        {/* Content Section */}
+        {/* Content */}
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
+          <div className="flex items-center justify-center py-16">
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-gray-600 font-medium">Loading your bookings...</p>
+            </div>
           </div>
         ) : bookings.length === 0 && !error ? (
-          <div className="text-center py-16 animate-fade-in">
-            <Calendar className="mx-auto h-16 w-16 text-gray-400 mb-4" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-16"
+          >
+            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Activity className="w-12 h-12 text-gray-400" />
+            </div>
             <h3 className="text-2xl font-semibold text-gray-900 mb-2">No Bookings Found</h3>
-            <p className="text-gray-600 mb-6">Book a class to get started!</p>
-            <Button
+            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              You haven't booked any classes yet. Browse our available classes and reserve your spot today!
+            </p>
+            <button
               onClick={() => navigate('/')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
             >
+              <Calendar className="w-5 h-5" />
               Browse Classes
-            </Button>
-          </div>
+            </button>
+          </motion.div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
-            {bookings.map((booking) => (
-              <Card
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {bookings.map((booking, index) => (
+              <motion.div
                 key={booking.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
               >
-                <CardHeader className="border-b border-gray-100">
-                  <CardTitle className="text-xl font-semibold text-gray-900 flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-blue-600" /> {booking.fitness_class_details?.class_type || 'N/A'}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-4 space-y-3">
-                  <p className="flex items-center gap-2 text-gray-700">
-                    <User className="h-4 w-4 text-gray-500" />
-                    <span className="font-medium">Instructor:</span> {booking.fitness_class_details?.instructor || 'N/A'}
+                {/* Header */}
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-6 text-white">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Calendar className="w-6 h-6" />
+                    <h3 className="text-xl font-bold">
+                      {booking.fitness_class_details?.class_type || 'N/A'}
+                    </h3>
+                  </div>
+                  <p className="text-indigo-100 text-sm">
+                    Booking ID: #{booking.id}
                   </p>
-                  <p className="flex items-center gap-2 text-gray-700">
-                    <Calendar className="h-4 w-4 text-gray-500" />
-                    <span className="font-medium">Date:</span>
-                    {booking.fitness_class_details?.date_time
-                      ? new Date(booking.fitness_class_details.date_time).toLocaleString('en-IN', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })
-                      : 'N/A'}
-                  </p>
-                  <p className="flex items-center gap-2 text-gray-700">
-                    <User className="h-4 w-4 text-gray-500" />
-                    <span className="font-medium">Booked by:</span> {booking.client_name} ({booking.client_email})
-                  </p>
-                  <Button
-                    variant="destructive"
-                    className="w-full mt-4 flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 text-white"
+                </div>
+
+                {/* Content */}
+                <div className="p-6 space-y-4">
+                  {/* Instructor */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                      <User className="w-5 h-5 text-gray-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium">Instructor</p>
+                      <p className="font-semibold text-gray-900">
+                        {booking.fitness_class_details?.instructor || 'N/A'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Date & Time */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-gray-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-500 font-medium">Date & Time</p>
+                      <p className="font-semibold text-gray-900">
+                        {booking.fitness_class_details?.date_time
+                          ? new Date(booking.fitness_class_details.date_time).toLocaleString('en-IN', {
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                            })
+                          : 'N/A'}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Booked by */}
+                  <div className="p-4 bg-gray-50 rounded-xl">
+                    <p className="text-xs text-gray-500 font-medium mb-1">Booked by</p>
+                    <p className="font-semibold text-gray-900">{booking.client_name}</p>
+                    <p className="text-sm text-gray-600">{booking.client_email}</p>
+                  </div>
+
+                  {/* Cancel Button */}
+                  <button
                     onClick={() => handleCancel(booking.id)}
-                    aria-label={`Cancel booking for ${booking.fitness_class_details?.class_type}`}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-50 text-red-600 border border-red-200 rounded-xl hover:bg-red-100 transition-colors font-medium"
                   >
-                    <Trash2 className="h-4 w-4" /> Cancel Booking
-                  </Button>
-                </CardContent>
-              </Card>
+                    <Trash2 className="w-4 h-4" />
+                    Cancel Booking
+                  </button>
+                </div>
+              </motion.div>
             ))}
           </div>
         )}
-        {error && <p className="text-red-500 text-sm mt-4 text-center">{error}</p>}
+
+        {/* Error Message */}
+        {error && (
+          <div className="mt-8 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <p className="text-red-600 text-center">{error}</p>
+          </div>
+        )}
       </div>
     </div>
   );
