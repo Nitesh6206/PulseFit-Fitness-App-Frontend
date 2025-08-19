@@ -77,13 +77,13 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         
-        {/* Left Side - Branding */}
+        {/* Professional branding section */}
         <div className="hidden lg:block">
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-3xl mb-8 shadow-xl">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-slate-700 rounded-2xl mb-8 shadow-lg">
               <Activity className="w-10 h-10 text-white" />
             </div>
 
@@ -115,13 +115,13 @@ const Register = () => {
               ].map((feature, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-4 p-4 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/50 shadow-sm"
+                  className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200 shadow-sm"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
-                    <feature.icon className="w-6 h-6 text-white" />
+                  <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center shadow-sm">
+                    <feature.icon className="w-6 h-6 text-slate-600" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-gray-900">{feature.title}</h3>
+                    <h3 className="font-semibold text-gray-900">{feature.title}</h3>
                     <p className="text-sm text-gray-600">{feature.desc}</p>
                   </div>
                 </div>
@@ -130,31 +130,31 @@ const Register = () => {
           </div>
         </div>
 
-        {/* Right Side - Register Form */}
+        {/* Professional register form */}
         <div className="w-full max-w-md mx-auto">
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 p-8 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 max-h-[90vh] overflow-y-auto">
             
             {/* Mobile Logo */}
             <div className="text-center mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl mb-4 shadow-lg lg:hidden">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-slate-700 rounded-xl mb-4 shadow-sm lg:hidden">
                 <Activity className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h2>
+              <h2 className="text-3xl font-semibold text-gray-900 mb-2">Create Account</h2>
               <p className="text-gray-600">Join the PulseFit community today</p>
             </div>
 
             {/* Error Message */}
             {error && (
-              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
                 {error}
               </div>
             )}
 
             <div className="space-y-5">
-              {/* Username */}
+              {/* Professional form fields */}
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  <User className="w-4 h-4 text-purple-500" />
+                  <User className="w-4 h-4 text-slate-600" />
                   Username
                 </label>
                 <input
@@ -162,7 +162,7 @@ const Register = () => {
                   name="username"
                   value={formData.username}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50/70 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 text-gray-900 placeholder-gray-500"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300 text-gray-900 placeholder-gray-500"
                   placeholder="Choose a username"
                 />
                 {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
@@ -171,7 +171,7 @@ const Register = () => {
               {/* Email */}
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  <Mail className="w-4 h-4 text-purple-500" />
+                  <Mail className="w-4 h-4 text-slate-600" />
                   Email
                 </label>
                 <input
@@ -179,7 +179,7 @@ const Register = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50/70 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 text-gray-900 placeholder-gray-500"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300 text-gray-900 placeholder-gray-500"
                   placeholder="Enter your email"
                 />
                 {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
@@ -188,7 +188,7 @@ const Register = () => {
               {/* Phone Number */}
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  <Phone className="w-4 h-4 text-purple-500" />
+                  <Phone className="w-4 h-4 text-slate-600" />
                   Phone Number
                 </label>
                 <input
@@ -196,26 +196,26 @@ const Register = () => {
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-gray-50/70 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 text-gray-900 placeholder-gray-500"
+                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300 text-gray-900 placeholder-gray-500"
                   placeholder="Enter your phone number"
                 />
                 {errors.phone_number && <p className="text-red-500 text-sm">{errors.phone_number}</p>}
               </div>
 
-              {/* Role Selection */}
+              {/* Professional role selection */}
               <div className="space-y-3">
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  <Shield className="w-4 h-4 text-purple-500" />
+                  <Shield className="w-4 h-4 text-slate-600" />
                   I want to join as
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
                     onClick={() => handleChange({target: {name: 'role', value: 'member'}})}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 text-center ${
+                    className={`p-4 rounded-lg border-2 transition-all duration-300 text-center ${
                       formData.role === 'member' 
-                        ? 'border-purple-500 bg-purple-50 text-purple-700' 
-                        : 'border-gray-200 bg-gray-50/70 text-gray-600 hover:border-gray-300'
+                        ? 'border-slate-500 bg-slate-50 text-slate-700' 
+                        : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300'
                     }`}
                   >
                     <User className="w-6 h-6 mx-auto mb-2" />
@@ -224,10 +224,10 @@ const Register = () => {
                   <button
                     type="button"
                     onClick={() => handleChange({target: {name: 'role', value: 'trainer'}})}
-                    className={`p-4 rounded-xl border-2 transition-all duration-300 text-center ${
+                    className={`p-4 rounded-lg border-2 transition-all duration-300 text-center ${
                       formData.role === 'trainer' 
-                        ? 'border-purple-500 bg-purple-50 text-purple-700' 
-                        : 'border-gray-200 bg-gray-50/70 text-gray-600 hover:border-gray-300'
+                        ? 'border-slate-500 bg-slate-50 text-slate-700' 
+                        : 'border-gray-200 bg-gray-50 text-gray-600 hover:border-gray-300'
                     }`}
                   >
                     <Dumbbell className="w-6 h-6 mx-auto mb-2" />
@@ -240,7 +240,7 @@ const Register = () => {
               {/* Password */}
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  <Lock className="w-4 h-4 text-purple-500" />
+                  <Lock className="w-4 h-4 text-slate-600" />
                   Password
                 </label>
                 <div className="relative">
@@ -249,7 +249,7 @@ const Register = () => {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 pr-12 bg-gray-50/70 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 text-gray-900 placeholder-gray-500"
+                    className="w-full px-4 py-3 pr-12 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300 text-gray-900 placeholder-gray-500"
                     placeholder="Create a secure password"
                   />
                   <button
@@ -266,7 +266,7 @@ const Register = () => {
               {/* Confirm Password */}
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                  <Lock className="w-4 h-4 text-purple-500" />
+                  <Lock className="w-4 h-4 text-slate-600" />
                   Confirm Password
                 </label>
                 <div className="relative">
@@ -275,7 +275,7 @@ const Register = () => {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 pr-12 bg-gray-50/70 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 transition-all duration-300 text-gray-900 placeholder-gray-500"
+                    className="w-full px-4 py-3 pr-12 bg-gray-50 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300 text-gray-900 placeholder-gray-500"
                     placeholder="Confirm your password"
                   />
                   <button
@@ -289,13 +289,13 @@ const Register = () => {
                 {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
               </div>
 
-              {/* Submit Button */}
+              {/* Professional submit button */}
               <button
                 type="button"
                 onClick={handleSubmit}
                 disabled={loading}
-                className={`w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 ${
-                  loading ? 'opacity-50 cursor-not-allowed transform-none' : 'hover:from-purple-600 hover:to-indigo-700'
+                className={`w-full flex items-center justify-center gap-3 px-6 py-4 bg-slate-700 text-white font-semibold rounded-lg shadow-sm hover:shadow-md hover:bg-slate-800 transition-all duration-300 ${
+                  loading ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
               >
                 {loading ? (
@@ -314,7 +314,7 @@ const Register = () => {
               <p className="text-gray-600">
                 Already have an account?{' '}
                 <Link to="/login"
-                  className="text-purple-600 hover:text-purple-700 font-semibold transition-colors"
+                  className="text-slate-600 hover:text-slate-700 font-semibold transition-colors"
                 >
                   Sign in here
                 </Link>

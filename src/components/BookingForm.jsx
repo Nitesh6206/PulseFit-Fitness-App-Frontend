@@ -77,9 +77,9 @@ const BookingForm = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <div className="w-16 h-16 border-4 border-slate-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 font-medium">Loading classes...</p>
         </div>
       </div>
@@ -87,19 +87,19 @@ const BookingForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-8 px-4">
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
           <button
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-2 px-4 py-2 text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-xl hover:bg-indigo-100 transition-colors font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 text-slate-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors font-medium shadow-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Classes
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Book a Class</h1>
+            <h1 className="text-3xl font-semibold text-gray-900">Book a Class</h1>
             <p className="text-gray-600">Reserve your spot in a fitness class</p>
           </div>
         </div>
@@ -108,11 +108,11 @@ const BookingForm = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-3xl shadow-xl border border-gray-100 p-8"
+          className="bg-white rounded-lg shadow-sm border border-gray-200 p-8"
         >
           {/* Error Message */}
           {errors.non_field && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-600 text-center">{errors.non_field}</p>
             </div>
           )}
@@ -121,15 +121,15 @@ const BookingForm = () => {
             {/* Class Selection */}
             <div className="space-y-3">
               <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                <Calendar className="w-4 h-4 text-indigo-500" />
+                <Calendar className="w-4 h-4 text-slate-600" />
                 Select Class
               </label>
               
               {selectedClass ? (
-                <div className="p-6 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-2xl">
+                <div className="p-6 bg-slate-50 border border-slate-200 rounded-lg">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{selectedClass.class_type}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1">{selectedClass.class_type}</h3>
                       <p className="text-gray-600 mb-2">
                         {new Date(selectedClass.date_time).toLocaleString('en-IN', {
                           day: 'numeric',
@@ -144,7 +144,7 @@ const BookingForm = () => {
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-500">Available</p>
-                      <p className="text-2xl font-bold text-indigo-600">
+                      <p className="text-2xl font-semibold text-slate-700">
                         {selectedClass.available_slots}
                       </p>
                       <p className="text-xs text-gray-500">spots left</p>
@@ -161,7 +161,7 @@ const BookingForm = () => {
                       setErrors({ ...errors, class_id: '' });
                       setSelectedClass(classes.find(c => c.id.toString() === e.target.value) || null);
                     }}
-                    className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+                    className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                       errors.class_id ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                     }`}
                   >
@@ -191,7 +191,7 @@ const BookingForm = () => {
             {/* Slots Input */}
             <div className="space-y-3">
               <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-                <User className="w-4 h-4 text-indigo-500" />
+                <User className="w-4 h-4 text-slate-600" />
                 Number of Slots
               </label>
               <div className="relative">
@@ -203,7 +203,7 @@ const BookingForm = () => {
                   value={formData.slots}
                   onChange={(e) => setFormData({ ...formData, slots: Number(e.target.value) })}
                   placeholder="Enter number of slots"
-                  className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+                  className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                     errors.slots ? 'border-red-300 bg-red-50' : 'border-gray-200 hover:border-gray-300'
                   }`}
                   required
@@ -225,15 +225,15 @@ const BookingForm = () => {
               <button
                 type="button"
                 onClick={() => navigate('/')}
-                className="flex-1 px-6 py-3 text-gray-600 bg-gray-100 border border-gray-200 rounded-xl hover:bg-gray-200 transition-colors font-medium"
+                className="flex-1 px-6 py-3 text-gray-600 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors font-medium"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                className={`flex-1 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ${
-                  submitting ? 'opacity-50 cursor-not-allowed transform-none' : 'hover:from-indigo-600 hover:to-purple-700'
+                className={`flex-1 px-6 py-3 bg-slate-700 text-white font-semibold rounded-lg shadow-sm hover:shadow-md hover:bg-slate-800 transition-all duration-200 ${
+                  submitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
               >
                 {submitting ? (

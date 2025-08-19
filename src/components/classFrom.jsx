@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Calendar, User, MapPin, Clock, X } from "lucide-react"
+import { Calendar, User, MapPin, Clock, X } from 'lucide-react'
 import axiosInstance from "../redux/axiosConfig"
 import { motion } from "framer-motion"
 
@@ -108,19 +108,19 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="bg-white rounded-3xl shadow-2xl p-8 max-w-2xl mx-auto"
+      className="bg-white rounded-lg shadow-lg p-8 max-w-2xl mx-auto border border-gray-200"
     >
-      {/* Header */}
+      {/* Professional header with clean styling */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-semibold text-gray-900">
             {editingClass || id ? "Edit Fitness Class" : "Create New Fitness Class"}
           </h2>
           <p className="text-gray-600 mt-1">Fill in the details for your fitness class</p>
         </div>
         <button
           onClick={() => setIsOpen(false)}
-          className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
+          className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
         >
           <X className="w-6 h-6" />
         </button>
@@ -128,23 +128,23 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
 
       {/* Error Message */}
       {errors.non_field && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-red-600 text-center">{errors.non_field}</p>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Class Type */}
+        {/* Professional form fields with clean styling */}
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-            <Calendar className="w-4 h-4 text-indigo-500" />
+            <Calendar className="w-4 h-4 text-slate-600" />
             Class Type
           </label>
           <select
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 appearance-none ${
+            className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 appearance-none ${
               errors.name ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
             }`}
           >
@@ -160,7 +160,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-              <Calendar className="w-4 h-4 text-indigo-500" />
+              <Calendar className="w-4 h-4 text-slate-600" />
               Date & Time
             </label>
             <div className="relative">
@@ -169,7 +169,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
                 name="date_time"
                 value={formData.date_time}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+                className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                   errors.date_time ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
                 }`}
               />
@@ -180,7 +180,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
 
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-              <Clock className="w-4 h-4 text-indigo-500" />
+              <Clock className="w-4 h-4 text-slate-600" />
               Duration (minutes)
             </label>
             <div className="relative">
@@ -191,7 +191,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
                 onChange={handleChange}
                 placeholder="60"
                 min="1"
-                className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+                className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                   errors.duration ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
                 }`}
               />
@@ -204,7 +204,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
         {/* Instructor */}
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-            <User className="w-4 h-4 text-indigo-500" />
+            <User className="w-4 h-4 text-slate-600" />
             Instructor
           </label>
           <div className="relative">
@@ -213,7 +213,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
               value={formData.instructor}
               onChange={handleChange}
               placeholder="Enter instructor name"
-              className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                 errors.instructor ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
               }`}
             />
@@ -226,7 +226,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-              <User className="w-4 h-4 text-indigo-500" />
+              <User className="w-4 h-4 text-slate-600" />
               Total Slots
             </label>
             <div className="relative">
@@ -237,7 +237,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
                 onChange={handleChange}
                 min="1"
                 placeholder="15"
-                className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+                className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                   errors.total_slots ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
                 }`}
               />
@@ -248,14 +248,14 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
 
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-              <User className="w-4 h-4 text-indigo-500" />
+              <User className="w-4 h-4 text-slate-600" />
               Difficulty
             </label>
             <select
               name="difficulty"
               value={formData.difficulty}
               onChange={handleChange}
-              className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 appearance-none ${
+              className={`w-full px-4 py-3 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 appearance-none ${
                 errors.difficulty ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
               }`}
             >
@@ -271,7 +271,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
         {/* Location */}
         <div className="space-y-2">
           <label className="flex items-center gap-2 text-sm font-semibold text-gray-700">
-            <MapPin className="w-4 h-4 text-indigo-500" />
+            <MapPin className="w-4 h-4 text-slate-600" />
             Location
           </label>
           <div className="relative">
@@ -280,7 +280,7 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
               value={formData.Location}
               onChange={handleChange}
               placeholder="Studio A, Gym Floor, etc."
-              className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 ${
+              className={`w-full px-4 py-3 pl-12 bg-gray-50 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 ${
                 errors.Location ? "border-red-300 bg-red-50" : "border-gray-200 hover:border-gray-300"
               }`}
             />
@@ -289,12 +289,12 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
           {errors.Location && <p className="text-red-500 text-sm">{errors.Location}</p>}
         </div>
 
-        {/* Action Buttons */}
+        {/* Professional action buttons */}
         <div className="flex gap-4 pt-6">
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            className="flex-1 px-6 py-3 text-gray-600 bg-gray-100 border border-gray-200 rounded-xl hover:bg-gray-200 transition-colors font-medium"
+            className="flex-1 px-6 py-3 text-gray-600 bg-gray-100 border border-gray-200 rounded-lg hover:bg-gray-200 transition-colors font-medium"
             disabled={submitting}
           >
             Cancel
@@ -302,8 +302,8 @@ const ClassForm = ({ editingClass, onSuccess, setIsOpen }) => {
           <button
             type="submit"
             disabled={submitting}
-            className={`flex-1 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 ${
-              submitting ? "opacity-50 cursor-not-allowed transform-none" : "hover:from-indigo-600 hover:to-purple-700"
+            className={`flex-1 px-6 py-3 bg-slate-700 text-white font-semibold rounded-lg shadow-sm hover:shadow-md hover:bg-slate-800 transition-all duration-200 ${
+              submitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
             {submitting ? (

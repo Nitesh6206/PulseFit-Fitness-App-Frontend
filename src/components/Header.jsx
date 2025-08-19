@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
-import { LogOut, Menu, X, Home, Calendar, Activity } from "lucide-react"
+import { LogOut, Menu, X, Home, Calendar, Activity } from 'lucide-react'
 import { motion, AnimatePresence } from "framer-motion"
 
 const Header = () => {
@@ -29,27 +29,28 @@ const Header = () => {
   const isActive = (path) => location.pathname === path
 
   return (
-    <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg shadow-lg border-b border-gray-100">
+    // <CHANGE> Professional header with clean white background
+    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* <CHANGE> Professional logo with clean styling */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <div className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+            <div className="w-10 h-10 bg-slate-700 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">PF</span>
             </div>
             <div>
               <h1 className="text-xl font-bold text-gray-900">
-                <span className="text-indigo-600">Pulse</span>
-                <span className="text-purple-600">Fit</span>
+                <span className="text-slate-700">Pulse</span>
+                <span className="text-slate-500">Fit</span>
               </h1>
             </div>
           </motion.div>
 
-          {/* Desktop Navigation */}
+          {/* <CHANGE> Clean navigation with professional styling */}
           <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item, index) => (
               <motion.button
@@ -58,10 +59,10 @@ const Header = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => navigate(item.path)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   isActive(item.path)
-                    ? "bg-indigo-100 text-indigo-700 shadow-sm"
-                    : "text-gray-600 hover:text-indigo-600 hover:bg-indigo-50"
+                    ? "bg-slate-100 text-slate-700 shadow-sm"
+                    : "text-gray-600 hover:text-slate-700 hover:bg-slate-50"
                 }`}
               >
                 <item.icon className="w-4 h-4" />
@@ -76,7 +77,7 @@ const Header = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-xl font-medium transition-all duration-200"
+              className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg font-medium transition-all duration-200"
             >
               <LogOut className="w-4 h-4" />
               Logout
@@ -87,7 +88,7 @@ const Header = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-colors"
+              className="p-2 text-gray-600 hover:text-slate-700 hover:bg-slate-50 rounded-lg transition-colors"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -114,10 +115,10 @@ const Header = () => {
                       navigate(item.path)
                       setIsMenuOpen(false)
                     }}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
                       isActive(item.path)
-                        ? "bg-indigo-100 text-indigo-700"
-                        : "text-gray-600 hover:text-indigo-600 hover:bg-indigo-50"
+                        ? "bg-slate-100 text-slate-700"
+                        : "text-gray-600 hover:text-slate-700 hover:bg-slate-50"
                     }`}
                   >
                     <item.icon className="w-5 h-5" />
@@ -135,7 +136,7 @@ const Header = () => {
                     handleLogout()
                     setIsMenuOpen(false)
                   }}
-                  className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-xl font-medium transition-all duration-200"
+                  className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg font-medium transition-all duration-200"
                 >
                   <LogOut className="w-5 h-5" />
                   Logout

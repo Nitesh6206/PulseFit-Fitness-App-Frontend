@@ -39,14 +39,6 @@ const FitnessForm = ({ onCreate, setIsOpen }) => {
           <h2 className="text-2xl font-bold text-gray-900">Create AI Fitness Plan</h2>
           <p className="text-gray-600 mt-1">Let AI design your personalized fitness journey</p>
         </div>
-        {setIsOpen && (
-          <button
-            onClick={() => setIsOpen(false)}
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        )}
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
