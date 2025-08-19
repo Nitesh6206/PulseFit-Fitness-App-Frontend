@@ -22,6 +22,7 @@ const App = () => {
         <Route path="/my-bookings" element={<BookingList />} />
         <Route path="/my-fitness-plans" element={<MyFitnessDashboard />} />
       </Route>
+      
     </Routes>
   )
 }
